@@ -1,4 +1,5 @@
 name: Bananaphoon
-description: A sample web application
+description: Image Viewer
 dependencies:
   browser: any
+  vector_math: any
