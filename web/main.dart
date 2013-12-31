@@ -22,6 +22,6 @@ void main() {
       ..pos.setValues(-200.0, -100.0);
 
     var projector1 = new Projector(camera1);
-    var projector2 = new Projector(camera2, new Vector2(500.0, 300.0), new Vector2(40.0, 99.0));
+    var projector2 = new Projector(camera2, new Vector2(500.0, 300.0), new Vector2(400.0, 60.0));
   });
 }

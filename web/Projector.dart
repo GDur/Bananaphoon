@@ -7,23 +7,25 @@ class Projector {
   DivElement div;
   
   Grid grid;
+  
+  
   Projector(this.camera, [ Vector2 size, Vector2 pos]) {
     canvas = new CanvasElement();
     
     ctx = canvas.getContext('2d');
     
     div = new DivElement();
-    div.style.position = "relative";
+    div.style.position = "absolute";
     div.children.add(canvas);
     
     if(size != null)
       setSize(size);
-    
+    else
+      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
     
     if(pos != null)
       setPos(pos);
     
-
     querySelector("body").children.add(div);
 
     grid = new Grid();
