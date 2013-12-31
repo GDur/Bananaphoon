@@ -20,12 +20,18 @@ void main() {
     var paper = new Paper()
       ..addDrawable(new Image(head))
       ..addDrawable(new Image(dartlogo))
+      ..addDrawable(new Polygon([new Vector2(15.0, 5.0),
+                                 new Vector2(15.0, 6.0),
+                                 new Vector2(14.0, 6.0),
+                                 new Vector2(14.0, 7.0),
+                                 new Vector2(13.0, 7.0),
+                                 new Vector2(13.0, 10.0)]))
       ..autoSize();
 
     var camera1 = new Camera()
       ..setPaper(paper)
-      ..pos.setValues(-100.0, -50.0)
-      ..zoomFactor = 2.5;
+      ..pos.setValues(-10.0, -20.0)
+      ..zoomFactor = 10.5;
     
     var camera2 = new Camera()
       ..setPaper(paper)
@@ -38,17 +44,16 @@ void main() {
         new Vector2(220.0, 150.0), 
         new Vector2(10.0, 10.0)
     );
-
+    
     List<Projector> projectors = [projector1, projector2];
     
     void draw(num _) {
-      int width  = window.innerWidth ;
+      int width  = window.innerWidth;
       int height = window.innerHeight;
 
       projectors.forEach((p) {
           p.draw();
       });
-      
       window.requestAnimationFrame(draw);
     }
     void requestRedraw() {

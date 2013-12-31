@@ -8,9 +8,11 @@ class Paper {
     var maxSize = new Vector2.zero();
     
     _drawables.forEach((ADrawable e) {
-      var tmpSize = (e.size + e.pos);
-      if(maxSize.x < tmpSize.x && maxSize.y < tmpSize.y) {
-        maxSize = tmpSize;
+      if(e.size != null) {
+        var tmpSize = (e.size + e.pos);
+        if(maxSize.x < tmpSize.x && maxSize.y < tmpSize.y) {
+          maxSize = tmpSize;
+        }
       }
     });
     
