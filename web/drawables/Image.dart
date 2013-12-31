@@ -20,7 +20,7 @@ class Image extends ADrawable {
   }
   
   draw(CanvasRenderingContext2D ctx, Vector2 offset, double zoom){
-    drawImage(zoom, ctx, image, offset.x, offset.y);
+    drawImage(zoom, ctx, image, -offset.x, -offset.y);
   }
   
   ImageData getPixels(ImageElement img) {

@@ -25,8 +25,8 @@ class Paper {
     _drawables.add(d);
   }
   
-  getDrawables() => _drawables;
+  List<ADrawable> getDrawables() => _drawables;
   
-  getSize() => size;
+  Vector2 getSize() => size;
   
 }
