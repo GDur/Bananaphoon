@@ -1,13 +1,14 @@
 part of bananaphoon;
 
 class Projector {
+  
   CanvasElement canvas;
   CanvasRenderingContext2D ctx;
+  
   Camera camera;
   DivElement div;
   
-  Grid grid;
-  
+  Grid grid;  
   
   Projector(this.camera, [ Vector2 size, Vector2 pos]) {
     canvas = new CanvasElement();
@@ -16,13 +17,16 @@ class Projector {
     
     div = new DivElement();
     div.style.position = "absolute";
-    div.children.add(canvas);
     
-    if(size != null)
+    
+    if(size != null){
       setSize(size);
+      div.style.border = "1px solid #B3B2B2";
+    }
     else
       setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
-    
+
+    div.children.add(canvas);
     if(pos != null)
       setPos(pos);
     
