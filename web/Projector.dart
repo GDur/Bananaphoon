@@ -9,6 +9,7 @@ class Projector {
   DivElement div;
   
   Grid grid;  
+  bool isFullscreen = false;
   
   Projector(this.camera, [ Vector2 size, Vector2 pos]) {
     canvas = new CanvasElement();
@@ -24,8 +25,8 @@ class Projector {
       div.style.border = "1px solid #B3B2B2";
     }
     else
-      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
-
+      isFullscreen = true;
+    
     div.children.add(canvas);
     if(pos != null)
       setPos(pos);
@@ -33,14 +34,19 @@ class Projector {
     querySelector("body").children.add(div);
 
     grid = new Grid();
-    
+  }
+
+  draw() {
+    if(isFullscreen)
+      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
+
     grid.draw(ctx, camera.pos, camera.zoomFactor, camera.paper.size);
 
     camera.paper.getDrawables().forEach((e){
       e.draw(ctx, camera.pos, camera.zoomFactor);
     });
   }
-
+  
   setSize(Vector2 size) {
     canvas.width  = size.x.toInt();  
     canvas.height = size.y.toInt();  

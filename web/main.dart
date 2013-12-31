@@ -18,27 +18,43 @@ void main() {
   Future.wait(futures).then((_){
     
     var paper = new Paper()
-    ..addDrawable(new Image(wheel))
-    ..addDrawable(new Image(head))
-    ..addDrawable(new Image(dartlogo))
+      ..addDrawable(new Image(head))
+      ..addDrawable(new Image(dartlogo))
       ..autoSize();
 
     var camera1 = new Camera()
       ..setPaper(paper)
-      ..pos.setValues(-100.0, -100.0)
-      ..zoomFactor = 1.5;
+      ..pos.setValues(-100.0, -50.0)
+      ..zoomFactor = 2.5;
     
     var camera2 = new Camera()
       ..setPaper(paper)
-      ..pos.setValues(-200.0, -100.0)
+      ..pos.setValues(-80.0, -10.0)
       ..zoomFactor = .5;
 
     var projector1 = new Projector(camera1);
     
     var projector2 = new Projector(camera2, 
-        new Vector2(500.0, 300.0), 
-        new Vector2(700.0, 60.0)
+        new Vector2(220.0, 150.0), 
+        new Vector2(10.0, 10.0)
     );
+
+    List<Projector> projectors = [projector1, projector2];
     
+    void draw(num _) {
+      int width  = window.innerWidth ;
+      int height = window.innerHeight;
+
+      projectors.forEach((p) {
+          p.draw();
+      });
+      
+      window.requestAnimationFrame(draw);
+    }
+    void requestRedraw() {
+      window.requestAnimationFrame(draw);
+    }
+    requestRedraw();
   });
+  
 }

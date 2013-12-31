@@ -4,19 +4,24 @@ class Image extends ADrawable {
   final Vector2 pos = new Vector2.zero(), size = new Vector2.zero();
   String path, name;
   ImageElement image;
-  
+
   static int created = 0;
   
-  Image(this.image,[ pos, this.name] ) { 
+  Image(this.image,[ pos, String name] ) { 
     if(pos != null)
       this.pos.setFrom(pos);
     
+    setName(name);
+    
+    path = image.src;
+    size.setFrom(new Vector2(image.width * 1.0, image.height * 1.0));
+  }
+  
+  setName(String name){
     if(name == null) {
       this.name = this.runtimeType.toString() + "_$created";
       created++;
     }
-    path = image.src;
-    size.setFrom(new Vector2(image.width * 1.0, image.height * 1.0));
   }
   
   draw(CanvasRenderingContext2D ctx, Vector2 offset, double zoom){
