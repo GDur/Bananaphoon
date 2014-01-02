@@ -58,26 +58,26 @@ class Projector {
     print(e.keyCode);
   }
 
-  void onMouseDown(MouseEvent e) {
-    isDown = true;
+  Vector2 getMousePos(MouseEvent e) {
     double a = e.client.x * 1.0;
     double b = e.client.y * 1.0;
-    lastMousePosition.setValues(a, b);
+    return new Vector2(a, b);
   }
   
+  void onMouseDown(MouseEvent e) {
+    isDown = true;
+    lastMousePosition.setFrom(getMousePos(e));
+  }  
+  
   void onMouseMove(MouseEvent e) {
-    if( isDown ){
-    double a = e.client.x * 1.0;
-    double b = e.client.y * 1.0;
-    Vector2 offset = new Vector2(a, b) - lastMousePosition;
-    camera.move(offset*camera.zoomFactor);
-    lastMousePosition.setFrom(offset);
-////    lastMousePosition.setFrom(offset);
-    mPos.setValues(a,b);}
+    if(isDown) {
+      Vector2 offset = lastMousePosition - getMousePos(e);
+      camera.setPos(camera.pos + offset/camera.zoomFactor);
+      lastMousePosition.setFrom(getMousePos(e));
+    }
   }
   
   void onMouseUp(MouseEvent e) {
-    print(e.client);
     isDown = false;
   }
   
