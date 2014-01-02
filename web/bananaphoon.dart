@@ -2,6 +2,7 @@ library bananaphoon;
 
 import 'dart:html';
 import 'dart:async';
+import 'dart:math' as Math;
 
 import 'package:vector_math/vector_math.dart';
 

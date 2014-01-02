@@ -14,17 +14,17 @@ class Image extends ADrawable {
     setName(name);
     
     path = image.src;
-    size.setFrom(new Vector2(image.width * 1.0, image.height * 1.0));
+    size.setFrom(new Vector2(image.width.toDouble(), image.height.toDouble()));
   }
   
-  setName(String name){
+  setName(String name) {
     if(name == null) {
       this.name = this.runtimeType.toString() + "_$created";
       created++;
     }
   }
   
-  draw(CanvasRenderingContext2D ctx, Vector2 offset, double zoom){
+  draw(CanvasRenderingContext2D ctx, Vector2 offset, double zoom) {
     drawImage(zoom, ctx, image, -offset.x, -offset.y);
   }
   

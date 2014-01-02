@@ -6,7 +6,15 @@ class Camera {
   double zoomFactor = 1.0;
   Paper paper;
   
-  setPaper(Paper p){
+  setPaper(Paper p) {
     paper = p;
+  }
+
+  void move(Vector2 offset) {
+    setPos(pos - offset);
+  }
+  
+  void setPos(Vector2 offset) {
+    pos.setFrom(offset);
   }
 }

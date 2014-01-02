@@ -1,7 +1,7 @@
 part of bananaphoon;
 
 class Paper {
-  final Vector2 size = new Vector2.zero();
+  final Vector2 _size = new Vector2.zero();
   var _drawables = new List<ADrawable>();
   
   autoSize() {
@@ -20,7 +20,7 @@ class Paper {
   }
   
   setSize(Vector2 size) {
-    this.size.setFrom(size);
+    this._size.setFrom(size);
   }
 
   addDrawable(ADrawable d){
@@ -29,6 +29,6 @@ class Paper {
   
   List<ADrawable> getDrawables() => _drawables;
   
-  Vector2 getSize() => size;
+  Vector2 getSize() => _size;
   
 }

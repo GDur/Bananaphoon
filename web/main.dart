@@ -29,23 +29,39 @@ void main() {
       ..autoSize();
 
     var camera1 = new Camera()
-      ..setPaper(paper)
-      ..pos.setValues(-10.0, -20.0)
-      ..zoomFactor = 10.5;
+      ..setPaper(paper);
     
     var camera2 = new Camera()
-      ..setPaper(paper)
-      ..pos.setValues(-80.0, -10.0)
-      ..zoomFactor = .5;
+      ..setPaper(paper);
 
-    var projector1 = new Projector(camera1);
+    var projector1 = new Projector(camera1)
+      ..zoomFitCamera(factor: 0.9)
+      ..centerCamera();
     
     var projector2 = new Projector(camera2, 
-        new Vector2(220.0, 150.0), 
-        new Vector2(10.0, 10.0)
-    );
+          new Vector2(160.0, 100.0), 
+          new Vector2(10.0, 10.0)
+      )
+      ..zoomFitCamera(factor: 0.9)
+      ..centerCamera();
     
     List<Projector> projectors = [projector1, projector2];
+    
+    querySelector('body').onKeyPress.listen((event) 
+        => projector1.onKeyPressed(event)
+    );
+    
+    querySelector('body').onMouseDown.listen((event)
+        => projector1.onMouseDown(event)
+    );
+
+    querySelector('body').onMouseMove.listen((event)
+        => projector1.onMouseMove(event)
+    );
+    
+    querySelector('body').onMouseUp.listen((event)
+        => projector1.onMouseUp(event)
+    );
     
     void draw(num _) {
       int width  = window.innerWidth;
@@ -56,6 +72,7 @@ void main() {
       });
       window.requestAnimationFrame(draw);
     }
+    
     void requestRedraw() {
       window.requestAnimationFrame(draw);
     }
