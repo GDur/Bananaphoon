@@ -6,46 +6,46 @@ class Image extends ADrawable {
   ImageElement image;
 
   static int created = 0;
-  
-  Image(this.image,[ pos, String name] ) { 
+
+  Image(this.image,[ pos, String name] ) {
     if(pos != null)
       this.pos.setFrom(pos);
-    
+
     setName(name);
-    
+
     path = image.src;
     size.setFrom(new Vector2(image.width.toDouble(), image.height.toDouble()));
   }
-  
+
   setName(String name) {
     if(name == null) {
       this.name = this.runtimeType.toString() + "_$created";
       created++;
     }
   }
-  
+
   draw(CanvasRenderingContext2D ctx, Vector2 offset, double zoom) {
     drawImage(zoom, ctx, image, -offset.x, -offset.y);
   }
-  
-  ImageData getPixels(ImageElement img) {
+
+  ImageData getPixels() {
   // Get image pixels from image element.
-    var canvas = new CanvasElement(width: img.width, height: img.height);
+    var canvas = new CanvasElement(width: image.width, height: image.height);
     CanvasRenderingContext2D context = canvas.getContext('2d');
-    context.drawImage(img, 0, 0);
+    context.drawImage(image, 0, 0);
     return context.getImageData(0, 0, canvas.width, canvas.height);
   }
-  
+
   void drawImage(num zoom, CanvasRenderingContext2D context, ImageElement img1,ox,oy) {
-  
-    ImageData imgData = getPixels(img1);
-  
+
+    ImageData imgData = getPixels();
+
     // Create an offscreen canvas, draw an image to it, and fetch the pixels
     CanvasElement tm = document.createElement('canvas');
     CanvasRenderingContext2D offtx = tm.getContext('2d');
-  
+
     var d = imgData.data;
-  
+
     // Draw the zoomed-up pixels to a different canvas context
     for (var x=0;x<img1.width; ++x){
       for (var y=0;y<img1.height; ++y){

@@ -19,15 +19,23 @@ void main() {
 
   Future.wait(futures).then((_){
 
+    var image = new Image(head);
+    List<int> labels;
+    List<int> dstPixels;
+
+    List<Polygon> lines  = findContours(image);
+    List<CatmulromPath> lines2 = getPolygons(lines);
+
     var paper = new Paper()
-      ..addDrawable(new Image(head))
-      ..addDrawable(new Polygon([new Vector2(15.0, 5.0),
-                                 new Vector2(15.0, 6.0),
-                                 new Vector2(14.0, 6.0),
-                                 new Vector2(14.0, 7.0),
-                                 new Vector2(13.0, 7.0),
-                                 new Vector2(13.0, 10.0)]))
-      ..autoSize();
+      ..addDrawable(image);
+
+    lines.forEach((l){
+      paper.addDrawable(l);
+    });
+    lines2.forEach((l){
+      paper.addDrawable(l);
+    });
+    paper.autoSize();
 
     var camera1 = new Camera()
       ..setPaper(paper);
@@ -68,10 +76,11 @@ void main() {
         => projector1.onMouseWheel(event)
     );
 
-    void draw(num _) {
-      int width  = window.innerWidth;
-      int height = window.innerHeight;
+    window.onResize.listen((event)
+        => projector1.onResize(event)
+    );
 
+    void draw(num _) {
       projectors.forEach((p) {
           p.draw();
       });

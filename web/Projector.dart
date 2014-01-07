@@ -10,7 +10,7 @@ class Projector {
 
   Grid grid;
   bool isFullscreen = false;
-  Vector2 pos;
+
   Vector2 mPos = new Vector2.zero();
   Vector2 lastMousePosition = new Vector2.zero();
 
@@ -38,6 +38,8 @@ class Projector {
     querySelector("body").children.add(div);
 
     grid = new Grid();
+    if(isFullscreen)
+      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
     draw();
   }
 
@@ -62,6 +64,11 @@ class Projector {
     double a = e.client.x * 1.0;
     double b = e.client.y * 1.0;
     return new Vector2(a, b);
+  }
+
+  void onResize(Event e) {
+    if(isFullscreen)
+      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
   }
 
   void onMouseWheel(WheelEvent e) {
@@ -95,22 +102,11 @@ class Projector {
   }
 
   void centerCamera() {
-   double a, b;
-   if(isFullscreen){
-     a = window.innerWidth.toDouble() - camera.paper.getSize().x * camera.zoomFactor;
-     b = window.innerHeight.toDouble() - camera.paper.getSize().y * camera.zoomFactor;
-     camera.pos.setFrom(new Vector2(-a / (2*camera.zoomFactor), -b / (2*camera.zoomFactor)));
-   }else{
-     a = getSize().x - camera.paper.getSize().x * camera.zoomFactor;
-     b = getSize().y - camera.paper.getSize().y * camera.zoomFactor;
-     camera.pos.setFrom(new Vector2(-a / (2*camera.zoomFactor), -b / (2*camera.zoomFactor)));
-   }
+    var tmp = getSize() - camera.paper.getSize() * camera.zoomFactor;
+    camera.pos.setFrom(-tmp / (2 * camera.zoomFactor));
   }
 
   void draw() {
-    if(isFullscreen)
-      setSize(new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble()));
-
     grid.draw(ctx, camera.pos, camera.zoomFactor, camera.paper._size);
 
     camera.paper.getDrawables().forEach((e){
@@ -123,16 +119,19 @@ class Projector {
     canvas.height = size.y.toInt();
   }
 
+  Vector2 getSize() {
+    if(isFullscreen)
+      return new Vector2(window.innerWidth.toDouble(), window.innerHeight.toDouble());
+    else
+      return new Vector2(canvas.width.toDouble(), canvas.height.toDouble());
+  }
+
   void setPos(Vector2 pos) {
     div.style.left = pos.x.toInt().toString() + "px";
     div.style.top  = pos.y.toInt().toString() + "px";
   }
 
   Vector2 getPos(){
-    return pos;
-  }
-
-  Vector2 getSize() {
-    return new Vector2(canvas.width.toDouble(), canvas.height.toDouble());
+    return new Vector2(div.clientLeft.toDouble(), div.clientLeft.toDouble());
   }
 }

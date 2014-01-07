@@ -1,14 +1,14 @@
 part of bananaphoon;
 
-class Polygon extends ADrawable {
+class CatmulromPath extends ADrawable {
   Vector2 pos = new Vector2.zero();
   List<Vector2> vertices;
   String color;
   int width;
 
-  Polygon(this.vertices);
+  CatmulromPath(this.vertices);
 
-  Polygon.advanced(this.vertices, this.width, this.color);
+  CatmulromPath.advanced(this.vertices, this.width, this.color);
 
   Vector2 get(int i) {
     return vertices[i];
@@ -24,7 +24,7 @@ class Polygon extends ADrawable {
                (vertices[0].y - offset.y) * zoom);
 
     for(int i = 1; i < vertices.length; i++)
-      ctx.lineTo((-offset.x + vertices[i].x) * zoom,(-offset.y + vertices[i].y) * zoom);
+      ctx.quadraticCurveTo((-offset.x + vertices[i].x) * zoom,(-offset.y + vertices[i].y) * zoom, 0, 0);
 
     ctx
       ..lineCap = 'square'
